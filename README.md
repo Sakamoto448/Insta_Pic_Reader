@@ -1,3 +1,5 @@
-# Extract the text data from screenshots of Instagram Posts in order to transition the data in excel format. The data extracted will be the users, comments, likes, and timestamp. 
+# Extract text data from screenshots of Instagram in order to transition that data in excel format.
 
-# Working on extracting the main post of interaction, coming soon.
+# Future Updates: 
+                  - Capture All post data (Poster, Post Description, Post Likes, Post Comments, Commenter Likes, Commenter Reply Tree)
+                  - Capture Story Data (Pols, Replies, etc...)
