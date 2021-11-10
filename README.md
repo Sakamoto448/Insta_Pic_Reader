@@ -2,4 +2,4 @@
 
 # Future Updates: 
        - Capture All post data (Poster, Post Description, Post Likes, Post Comments, Commenter Likes, Commenter Reply Tree)
-       - Capture Story Data (Pols, Replies, etc...)
+       - Capture Story Data (Polls, Replies, etc...)
