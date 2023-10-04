@@ -17,7 +17,8 @@ def masked(img):
     #cv2.imshow("filter", mask)
     #cv2.waitKey(0)
 
-    # Further read on how to make more accurate filtering for text analysis
+    # Further read on how to make more accurate filtering for text analysis haven't gotten the chance to finish this
+    # Accuracy for the screenshots is more accurate when screenshots are captured in dark mode during the time being.
     """
     # Horizontal Kernal and connect dialated text
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 3))
@@ -47,37 +48,34 @@ def resize(counter,file_date):
     img = cv2.imread("Raw Pics/" + file_date + "(" + str(x) + ").png", cv2.IMREAD_UNCHANGED)
     #Rimg = cv2.resize(img, (500, 500))
     #cropped = Rimg[80:420, 100:350]
-    cropped = img[350:1850, 220:850]
+    cropped = img[375:2150, 220:745] #[y:x]
 
-    cv2.imshow("PIC", img)
+    #cv2.imshow("PIC", img)
     #cv2.imshow("resize", Rimg)
     #cv2.imshow("cropped", cropped)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
 
     cv2.imwrite("Cropped_Pics/" + str(counter) + ".png", cropped, params=None)
-    #cv2.imwrite("Cropped_Follwers/" + str(counter) + ".png",cropped,params=None)
 
 def img_section(img,names,database, Recorded_date, Recorder):
     last = 0
-    for y in range(1, 9):
-        section = img[last: 180 * y, :]
-        cv2.imshow("section", section)
-        cv2.waitKey(0)
-
-        last = 180 * y
+    # this will be need to be changed in accordance tot he size of picture and accounts captured
+    for y in range(1, 11): # How many people per screenshot
+        section = img[last: 185 * y, :]  # <- change these values to math the SS (180 - 200)
+        last = 180 * y  # <- same number as the top line (180 - 200)
         mimg = masked(section)
-        cv2.imshow("sectioned HSV", mimg)
-        cv2.waitKey(0)
+        #cv2.imshow("sectioned HSV", mimg)
+        #cv2.waitKey(0)
 
         hImg, wImg, _ = section.shape
         boxes = pytesseract.image_to_data(mimg)
-        #print(boxes)
+        # print(boxes)
 
         # create each identified word as a list
         for x, b in enumerate(boxes.splitlines()):
             if x != 0:
                 b = b.split()
-                print(b)
+                # print(b)
 
                 if len(b) == 12:
                     if b[11] not in database:
@@ -85,7 +83,7 @@ def img_section(img,names,database, Recorded_date, Recorder):
                         database[len(names) - 1][0] = b[11]
                         database[len(names) - 1][2] = Recorded_date
                         database[len(names) - 1][3] = Recorder
-                        #print(names)
+                        print(names)
                         break
                     else:
                         break
@@ -93,12 +91,12 @@ def img_section(img,names,database, Recorded_date, Recorder):
 names = []
 database = np.empty([500, 4], dtype=object) # [Number of Followers, Attributes]
 files = os.listdir("Raw Pics")
-file_date = "10_27_21 "
-Recorded_date = "1/26/2021"
+file_date = "10_28_22 "
+Recorded_date = "12/21/22"
 Recorder = "Aron"
 
 for i in range(len(files)): #start loop here
-    resize(i,file_date) #cropped img to only names then saves it to Cropped_Follwers folder
+    resize(i,file_date) #cropped img to only names then saves it to Cropped_Pics folder
     img = cv2.imread("Cropped_Pics/" + str(i) + ".png", cv2.IMREAD_UNCHANGED)
     img_section(img, names, database, Recorded_date, Recorder)
 

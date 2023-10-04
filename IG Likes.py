@@ -8,7 +8,6 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\\tesser
 
 # HSV Mask to capture all Profile names only on img
 def masked(img):
-
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     lower = np.array([0, 0, 0])
     upper = np.array([179, 255, 150])
@@ -69,6 +68,7 @@ def resize(counter,file_name):
     #cropped = Rimg[80:420, 100:350]
     #cropped = img[250:1900, 220:745] #<- this is for old size
     cropped = img[200:2150, 220:745]
+
 
     #cv2.imshow("PIC", img)
     #cv2.imshow("resize", Rimg)
